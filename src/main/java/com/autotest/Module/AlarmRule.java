@@ -95,7 +95,7 @@ public class AlarmRule {
 	
 	/**
 	 * 告警规则信息输入：新建：true，编辑：false
-	 * @param textVals
+	 * @param alarmMessage
 	 * @param flag
 	 */
 	public void inputAlarmMessage(String[] alarmMessage,boolean flag){
@@ -112,6 +112,23 @@ public class AlarmRule {
 
 	}
 	
+	private void selectAlarmType(String type){
+		String tempJS = null;
+		String js = "document.getElementsByClassName(\"x-boundlist x-boundlist-"
+				+ "floating x-layer x-boundlist-default x-border-box\")[0].id";
+		String elementID =CommonOperations.executeJS(js, driver);
+		String js1="document.getElementById(\""+elementID+"\").getElementsByTagName(\"li\").length";
+		int typeCount=Integer.parseInt(CommonOperations.executeJS(js1, driver));
+		for(int i = 0; i < typeCount; i++){
+			tempJS = "document.getElementById(\""+elementID+"\").getElementsByTagName(\"li\")["
+					+ i+"].textContent";
+			if(type.equals(CommonOperations.executeJS(tempJS, driver))){
+				tempJS=
+			}
+		}
+	}
+
+	
 	private void inputRuleOption(String[] alarmMessage){
 		//获取触发条件的elementID号 
 		Combo combo =new Combo(driver);
@@ -121,6 +138,9 @@ public class AlarmRule {
 		int standNumber=Integer.parseInt(strNumber[1]);
 		//告警类型
 		String alarmType=elementID;
+		CommonOperations.clickComboByID(alarmType, driver);
+		//选择资源
+
 		//告警条件设置
 		String alarmOption =strNumber[0]+"-"+(standNumber+1);
 		//时间参数设置
