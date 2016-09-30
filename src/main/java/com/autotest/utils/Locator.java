@@ -86,7 +86,7 @@ public class Locator {
 	/**
 	 * 设置搜索元素的类型
 	 */
-	public void setBy(){
+	public void setBy(ByType byType){
 		this.byType=byType;
 	}
 	

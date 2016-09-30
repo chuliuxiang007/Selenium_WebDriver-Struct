@@ -1,13 +1,18 @@
 package com.autotest.utils;
 
+import java.sql.Driver;
+import java.util.List;
+
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import com.autotest.ExtJSPage;
 import com.autotest.component.Button;
 import com.autotest.component.Combo;
 import com.autotest.component.TextBox;
 import com.autotest.pageconstant.UCenterPageConstant;
+import com.autotest.utils.Locator.ByType;
 
 public class CommonOperations {
 	
@@ -54,7 +59,7 @@ public class CommonOperations {
 	
 	/**
 	 * 下拉框按钮操作：右边按钮点击
-	 * @param path
+	 * @param 根据combo的path
 	 * @param driver
 	 */
 	public static void clickCombBtn(String path,WebDriver driver){
@@ -62,6 +67,15 @@ public class CommonOperations {
 		String elementID =combo.getComboID(path);
 		combo.clickCombo(elementID);
 		
+	}
+	/**
+	 * 下拉框按钮操作：右边按钮点击
+	 * @param elementID 根据Combo的id号
+	 * @param driver
+	 */
+	public static void clickComboByID(String elementID,WebDriver driver){
+		Combo combo = new Combo(driver);
+		combo.clickCombo(elementID);
 	}
 	
 	/**
@@ -73,9 +87,32 @@ public class CommonOperations {
 		combo.selectDeviceTree(sn);
 	}
 	
+	/**
+	 * 按钮：单击
+	 * @param path 根据按钮的元素路径
+	 * @param driver
+	 */
 	public static void clickButton(String path,WebDriver driver){
 		Button btn = new Button(path, driver);
 		btn.click();
+	}
+	
+	
+	public static void selectCombo(String elementName,String value,WebDriver driver){
+		Locator locator = new Locator(elementName,20,ByType.className);
+		ExtJSPage extPage=new ExtJSPage(driver);
+		try {
+			List<WebElement> elements=extPage.getElements(driver, locator);
+			for(WebElement e :elements){
+				if(e.getText().equals(value)){
+					e.click();
+				}
+			}
+			Thread.sleep(1000);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 	}
 
 

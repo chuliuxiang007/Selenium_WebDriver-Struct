@@ -38,6 +38,9 @@ public class Label extends Control {
 	public boolean existLabel(){
 		boolean flag=false;
 		getID();
+		if(this.id==null){
+			return false;
+		}
 		Locator locator = new Locator(this.id);
 		ExtJSPage extPage=new ExtJSPage(webDriver);
 		try {

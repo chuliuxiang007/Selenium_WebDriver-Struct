@@ -13,7 +13,7 @@ public class TestLogin {
 	public void test() throws InterruptedException {
 		WebDriver webDriver = null;
 		LoginPage login = new LoginPage(webDriver);
-		login.login("chuliuxiang", "a123456789");
+		login.login("chuliuxiang", "a12345678");
 	}
 
 }

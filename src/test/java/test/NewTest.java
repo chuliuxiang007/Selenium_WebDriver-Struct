@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import com.autotest.pageobjects.LoginPage;
 import com.autotest.pageobjects.MainPage;
+import com.autotest.pageobjects.UCenterPage;
 
 public class NewTest {
   @Test
@@ -21,8 +22,16 @@ public class NewTest {
 		}
 		Thread.sleep(10000);
 		MainPage main = new MainPage(login.webDriver);
-		//Assert.assertTrue(main.isMainPage());		
+		Assert.assertTrue(main.isMainPage());		
 		System.out.println("the result is "+main.isMainPage());
 		main.clickUserCenter();
+		UCenterPage uCenter =new UCenterPage(webDriver);
+		Assert.assertTrue(uCenter.existUCenter());	
+		uCenter.clickUCenterBtn(3);
+		//新建告警规则
+		String[] alarm={"sdsdf","sdfkj"};
+		uCenter.addAalrmRule(alarm);
+		
+		
   }
 }

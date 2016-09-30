@@ -9,6 +9,8 @@ import org.openqa.selenium.WebDriver;
 public abstract class CompositeControl extends Control {
 	protected List<Control> children;
 	
+
+	
 	public CompositeControl(WebDriver webDriver){
 		super(webDriver);
 		children=new ArrayList<Control>();
@@ -18,5 +20,5 @@ public abstract class CompositeControl extends Control {
 		this.children.add(control);
 		control.parent=this;
 	}
-
+    
 }
