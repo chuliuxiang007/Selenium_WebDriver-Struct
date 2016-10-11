@@ -20,15 +20,16 @@ public class CommonOperations {
 	 * 执行js脚本
 	 * @param js
 	 * @param driver
-	 * @return 返回执行记过
+	 * @return 返回执行结果
 	 */
 	public static String executeJS(String js,WebDriver driver){		
 		JavascriptExecutor executor = (JavascriptExecutor)driver;
-		String resultJS=(String)executor.executeScript(js);
+		String resultJS=null;
 		int count = 0;
 		while(resultJS == null){
 			try {
-				 Thread.sleep(3000);
+				Thread.sleep(3000);
+				resultJS = (String)executor.executeScript(js);
 				count=count+1;
 				System.out.println("the count is "+count);
 			} catch (InterruptedException e) {
@@ -42,6 +43,27 @@ public class CommonOperations {
 			
 		}
 		return resultJS;
+	}
+	
+	/**
+	 * 执行js脚本
+	 * @param js
+	 * @param driver
+	 * @return 无返回结果
+	 */
+	public static void exeJS(String js,WebDriver driver){		
+		JavascriptExecutor executor = (JavascriptExecutor)driver;
+		String resultJS=null;
+		int count = 0;
+		try {
+			Thread.sleep(3000);
+			resultJS = (String)executor.executeScript(js);
+			System.out.println("the count is "+count);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
 	}
 	
 	/**

@@ -1,13 +1,23 @@
 package com.autotest.Module;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import com.autotest.Control;
+import com.autotest.common.objects.AlarmObject;
 import com.autotest.component.Button;
 import com.autotest.component.Combo;
 import com.autotest.component.TextBox;
 import com.autotest.pageconstant.UCenterPageConstant;
 import com.autotest.utils.CommonOperations;
+import com.sun.org.apache.bcel.internal.generic.Select;
 
 public class AlarmRule {
 	
@@ -16,8 +26,13 @@ public class AlarmRule {
 	private String tempJS=null;
 	private int alarmCount =0;
 	
-
+	//告警规则对象
 	
+
+	/**
+	 * 告警规则对象初始化
+	 * @param webDriver
+	 */
 	public AlarmRule(WebDriver webDriver) {
 		this.driver=webDriver;
 		// TODO Auto-generated constructor stub
@@ -35,7 +50,7 @@ public class AlarmRule {
 	 * @return
 	 */
 	public int getAalrmCount(){
-		tempJS="return document.getElementsByClassName(\"x-grid-row x-grid-data-row\").length";
+		tempJS="return document.getElementsByClassName(\"x-grid-row x-grid-data-row\").length.toString()";
 		String tCount=CommonOperations.executeJS(tempJS, driver);
 		alarmCount =Integer.parseInt(tCount);
 		return alarmCount;
@@ -80,10 +95,58 @@ public class AlarmRule {
 	}
 	
 	/**
+	 * 告警信息的读取
+	 * @return
+	 */
+	public List<AlarmObject> getAlarmMessages(){
+		//收集告警信息
+		int count = getAalrmCount();
+		List<AlarmObject> list = new LinkedList<AlarmObject>();
+		for(int i = 0 ; i < count ; i ++){
+			list.add(getAlarmMessage(i));
+		}
+		return list;
+	}
+	
+	/**
+	 * 单条告警信息收集
+	 * @param rowID
+	 * @return
+	 */
+	public AlarmObject getAlarmMessage(int rowID){
+		AlarmObject obj = new AlarmObject();
+		//告警规则名称
+		tempJS="return document.getElementsByClassName(\"x-grid-row x-grid-data-row\")"	
+				+ "["+rowID+"].getElementsByClassName(\"x-grid-cell-inner\")[0].textContent";
+		obj.alarmName=CommonOperations.executeJS(tempJS, driver);
+		//告警设备
+		tempJS="return document.getElementsByClassName(\"x-grid-row x-grid-data-row\")"	
+				+ "["+rowID+"].getElementsByClassName(\"x-grid-cell-inner\")[1].textContent";
+		obj.alarmDevices=CommonOperations.executeJS(tempJS, driver);
+		//级别
+		tempJS="return document.getElementsByClassName(\"x-grid-row x-grid-data-row\")"	
+				+ "["+rowID+"].getElementsByClassName(\"x-grid-cell-inner\")[2].textContent";
+		obj.level=CommonOperations.executeJS(tempJS, driver);
+		//创建时间
+		tempJS="return document.getElementsByClassName(\"x-grid-row x-grid-data-row\")"	
+				+ "["+rowID+"].getElementsByClassName(\"x-grid-cell-inner\")[3].textContent";
+		obj.creatime=CommonOperations.executeJS(tempJS, driver);
+		//告警方式
+		tempJS="return document.getElementsByClassName(\"x-grid-row x-grid-data-row\")"	
+				+ "["+rowID+"].getElementsByClassName(\"x-grid-cell-inner\")[4].textContent";
+		obj.alarmMethod=CommonOperations.executeJS(tempJS, driver);
+		//描述
+		tempJS="return document.getElementsByClassName(\"x-grid-row x-grid-data-row\")"	
+				+ "["+rowID+"].getElementsByClassName(\"x-grid-cell-inner\")[5].textContent";
+		obj.desc=CommonOperations.executeJS(tempJS, driver);
+		return obj;
+	}
+	
+	/**
 	 * 新建告警规则
 	 * @param alarm
 	 */
-	public void addAlarmRule(String[] alarm){
+	public void addAlarmRule(AlarmObject alarm){
 		//点击新建按钮
 		Button addAlarmBtn = new Button(UCenterPageConstant.alarmRule,driver);
 		addAlarmBtn.click();
@@ -98,38 +161,54 @@ public class AlarmRule {
 	 * @param alarmMessage
 	 * @param flag
 	 */
-	public void inputAlarmMessage(String[] alarmMessage,boolean flag){
+	public void inputAlarmMessage(AlarmObject alarmMessage,boolean flag){
 		//输入规则名称
 		if(flag){
-			CommonOperations.inputText(UCenterPageConstant.alarmName, alarmMessage[0], driver);
+			CommonOperations.inputText(UCenterPageConstant.alarmName, alarmMessage.alarmName, driver);
 		}
 		//输入描述
-		CommonOperations.inputText(UCenterPageConstant.alarmDesc, alarmMessage[0], driver);
-		//输入触发条件		
+		CommonOperations.inputText(UCenterPageConstant.alarmDesc, alarmMessage.desc, driver);
+		//输入触发条件	
+		inputRuleOption(alarmMessage);
 		//选择告警设备
 		CommonOperations.clickCombBtn(UCenterPageConstant.alarmDevice, driver);
 		CommonOperations.selectComboTreeDevice("2307440130001328", driver);
 
 	}
 	
+	/**
+	 * 告警类型选择
+	 * @param type
+	 */
 	private void selectAlarmType(String type){
 		String tempJS = null;
-		String js = "document.getElementsByClassName(\"x-boundlist x-boundlist-"
+		String js = "return document.getElementsByClassName(\"x-boundlist x-boundlist-"
 				+ "floating x-layer x-boundlist-default x-border-box\")[0].id";
 		String elementID =CommonOperations.executeJS(js, driver);
-		String js1="document.getElementById(\""+elementID+"\").getElementsByTagName(\"li\").length";
-		int typeCount=Integer.parseInt(CommonOperations.executeJS(js1, driver));
-		for(int i = 0; i < typeCount; i++){
-			tempJS = "document.getElementById(\""+elementID+"\").getElementsByTagName(\"li\")["
+		tempJS="return document.getElementById(\""+elementID+"\").getElementsByTagName(\"li\").length";
+		//String typeCount=CommonOperations.executeJS(tempJS, driver);
+		
+		for(int i = 0; i < Integer.parseInt("2"); i++){
+			tempJS = "return document.getElementById(\""+elementID+"\").getElementsByTagName(\"li\")["
 					+ i+"].textContent";
 			if(type.equals(CommonOperations.executeJS(tempJS, driver))){
-				tempJS=
+				String tempPath="//div[@id='"+elementID+"']//li["+i+"]";
+				WebElement elementPart = driver.findElement(By.xpath(tempPath));
+				if(elementPart == null){
+					System.out.println("the element is not exist");
+				}
+				tempJS = "document.getElementById(\""+elementID+"\").getElementsByTagName(\"li\")["
+						+ i+"].click()";
+				CommonOperations.exeJS(tempJS, driver);
 			}
 		}
 	}
 
-	
-	private void inputRuleOption(String[] alarmMessage){
+	/**
+	 * 告警内容信息填写，还未完成，需要继续完成
+	 * @param alarmMessage
+	 */
+	private void inputRuleOption(AlarmObject alarmMessage){
 		//获取触发条件的elementID号 
 		Combo combo =new Combo(driver);
 		String elementID=combo.getComboID(UCenterPageConstant.alarmOption);
@@ -140,15 +219,16 @@ public class AlarmRule {
 		String alarmType=elementID;
 		CommonOperations.clickComboByID(alarmType, driver);
 		//选择资源
-
+		selectAlarmType("状态");
 		//告警条件设置
 		String alarmOption =strNumber[0]+"-"+(standNumber+1);
 		//时间参数设置
 		String timeOpt="textfield-"+(standNumber+3);
 		String timeType=strNumber[0]+"-"+(standNumber+4);
 		String timeMeasure=strNumber[0]+"-"+(standNumber+5);
-		String measureValue="textfield-"+(standNumber+6);
-		
+		String measureValue="textfield-"+(standNumber+6);		
 	}
+	
+	
 	
 }

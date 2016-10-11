@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+	<appender name="appendConsole" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss SSS} [%t] %-5p %l - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="info" />
+			<param name="levelMax" value="fatal" />
+			<param name="AcceptOnMatch" value="true" />
+		</filter>
+	</appender>
+
+	<appender name="ibatisAppendConsole" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%8r [%t] %-5p %l - %m%n %d" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="DEBUG" />
+			<param name="LevelMax" value="FATAL" />
+		</filter>
+	</appender>
+
+	<appender name="appendFile" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="E:/log/output.log" />
+		<param name="Append" value="true" />
+		<param name="MaxBackupIndex" value="10" />
+		<param name="MaxFileSize" value="10MB" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss SSS} [%t] %-5p %l - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="appendDB" class="org.apache.log4j.jdbc.JDBCAppender">
+		<param name="driver" value="com.mysql.jdbc.Driver" />
+		<param name="URL" value="jdbc:mysql://hsm_db:3306/hsm_db" />
+		<param name="user" value="root" />
+		<param name="password" value="hillstone_root" />
+		<param name="bufferSize" value="100" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="insert into t_HsmOperLog(logType,funId,objType,objID,operType,operResult,failureReason,operUserId, sessionId, recordTime, description) 
+values('%X{logType}', '%X{funId}', '%X{objType}', '%X{objID}', '%X{operType}', '%X{operResult}', '%X{failureReason}', '%X{operUserId}', '%X{sessionId}', '%X{recordTime}', '%X{description}')" />
+		</layout>
+
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="error" />
+			<param name="levelMax" value="fatal" />
+			<param name="AcceptOnMatch" value="true" />
+		</filter>
+	</appender>
+
+	<appender name="adminAppendFile" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="/data/logs/javaweb/adminLog.log" />
+		<param name="Append" value="true" />
+		<param name="MaxBackupIndex" value="10" />
+		<param name="MaxFileSize" value="10MB" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss SSS} [%t] %-5p %l - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="briefAppendConsole" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{HH:mm:ss SSS} [%t] %c{1} %m%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="info" />
+            <param name="levelMax" value="fatal" />
+            <param name="AcceptOnMatch" value="true" />
+        </filter>
+    </appender>
+
+	<logger name="adminLogger">
+		<level value="INFO" />
+		<appender-ref ref="adminAppendFile" />
+	</logger>
+
+	<logger name="org.springframework">
+		<level value="WARN" />
+	</logger>
+
+	<logger name="org.hibernate">
+		<level value="WARN" />
+	</logger>
+
+	<logger name="java.sql">
+		<level value="ibatisAppendConsole" />
+	</logger>
+
+	<logger name="com.ibatis" additivity="true">
+		<level value="debug" />
+		<appender-ref ref="ibatisAppendConsole" />
+	</logger>
+	<logger name="java.sql.Connection" additivity="true">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="java.sql.Statement" additivity="true">
+		<level value="DEBUG" />
+	</logger>
+	
+	<logger name="java.sql.ResultSet" additivity="true">
+		<level value="warn" />
+	</logger>
+	<logger name="java.sql.PreparedStatement" additivity="true">
+		<level value="DEBUG" />
+		<appender-ref ref="ibatisAppendConsole" />
+	</logger>
+<!-- 	<logger name="java.sql.ResultSet" additivity="true">
+		<level value="error" />
+		<appender-ref ref="ibatisAppendConsole" />
+	</logger> -->
+
+	<root>
+		<priority value="info" />
+		<appender-ref ref="appendFile" />
+<!--		<appender-ref ref="appendConsole" />-->
+	</root>
+</log4j:configuration>  

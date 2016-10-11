@@ -1,9 +1,17 @@
 package com.autotest.pageobjects;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.apache.commons.lang3.Validate;
 import org.openqa.selenium.WebDriver;
 
 import com.autotest.ExtJSPage;
 import com.autotest.Module.AlarmRule;
+
+import com.autotest.common.ValidateObj;
+import com.autotest.common.objects.AlarmObject;
 import com.autotest.component.Button;
 import com.autotest.component.Combo;
 import com.autotest.component.TextBox;
@@ -85,10 +93,28 @@ public class UCenterPage extends ExtJSPage {
 	
 	//告警规则处理
 	
-	//新建告警规则
-	public void addAalrmRule(String[] alarm){
+	/**
+	 * 告警规则新建
+	 * @param alarm
+	 */
+	public void addAalrmRule(List<AlarmObject> alarm){
 		AlarmRule alarmRule = new AlarmRule(webDriver);
-		alarmRule.addAlarmRule(alarm);
+		Iterator<AlarmObject> iter1 = alarm.iterator();
+		while(iter1.hasNext()){
+			alarmRule.addAlarmRule(iter1.next());
+		}
+		
+	}
+	
+	/**
+	 * 告警规则的校验
+	 * @param expectd
+	 */
+	public void valAalarmRule(List<AlarmObject> expectd){
+		List<AlarmObject> actual = new LinkedList<AlarmObject>();
+		AlarmRule alarmRule = new AlarmRule(webDriver);
+		actual = alarmRule.getAlarmMessages();
+		ValidateObj.validateAlarm(actual, expectd);
 	}
 	
 	

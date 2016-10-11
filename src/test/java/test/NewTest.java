@@ -1,9 +1,14 @@
 package test;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.autotest.common.objects.AlarmObject;
 import com.autotest.pageobjects.LoginPage;
 import com.autotest.pageobjects.MainPage;
 import com.autotest.pageobjects.UCenterPage;
@@ -29,8 +34,16 @@ public class NewTest {
 		Assert.assertTrue(uCenter.existUCenter());	
 		uCenter.clickUCenterBtn(3);
 		//新建告警规则
-		String[] alarm={"sdsdf","sdfkj"};
-		uCenter.addAalrmRule(alarm);
+		
+		List<AlarmObject> abc = new  ArrayList<AlarmObject>();
+		AlarmObject a = new AlarmObject();
+		
+		a.alarmName="sliu1";
+		a.desc="we see it";
+		abc.add(a);
+		//uCenter.addAalrmRule(abc);
+		uCenter.valAalarmRule(abc);
+		
 		
 		
   }

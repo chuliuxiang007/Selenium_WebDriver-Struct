@@ -26,8 +26,8 @@ public class Combo extends Control {
 	 * @return
 	 */
 	public String  getComboID(String path){
-		getExtQueryID(path);
-		String id =executeJS(path);
+		String elementPath=getExtQueryID(path);
+		String id =executeJS(elementPath);
 		return id;
 	}
 	
