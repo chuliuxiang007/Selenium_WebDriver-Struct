@@ -1,3 +1,4 @@
+
 package com.autotest.utils;
 
 import java.io.File;
@@ -25,17 +26,17 @@ public class ReadExcelUtil {
 	
 	public static Object[][] readExcel(String filePath,String fileName,String sheetName) throws IOException{
 		Workbook web = null;
-		//¸ù¾İ²ÎÊı´«ÈëµÄÊı¾İÎÄ¼şÂ·¾¶ºÍÎÄ¼şÃû³Æ£¬×éºÏ³öExcelÊı¾İÎÄ¼şµÄ¾ø¶ÔÂ·¾¶
-		//ÉùÃ÷Ò»¸öFileÎÄ¼ş¶ÔÏó
+		//æ ¹æ®å‚æ•°ä¼ å…¥çš„æ•°æ®æ–‡ä»¶è·¯å¾„å’Œæ–‡ä»¶åç§°ï¼Œç»„åˆå‡ºExcelæ•°æ®æ–‡ä»¶çš„ç»å¯¹è·¯å¾„
+		//å£°æ˜ä¸€ä¸ªFileæ–‡ä»¶å¯¹è±¡
 		File file=new File(filePath+"\\"+fileName);
-		//´´½¨FileInputStream¶ÔÏó¶ÁÈ¡excleÎÄ¼ş
+		//åˆ›å»ºFileInputStreamå¯¹è±¡è¯»å–excleæ–‡ä»¶
 		FileInputStream inputStream = new FileInputStream(file);
-		//ÉùÃ÷Workbook¶ÔÏó
+		//å£°æ˜Workbookå¯¹è±¡
 		Workbook workbook = null;
-		//»ñÈ¡ÎÄ¼şµÄÀ©Õ¹Ãû£¬ÅĞ¶ÏÊÇ.xlsxÎÄ¼ş»¹ÊÇ.xlsÎÄ¼ş
+		//è·å–æ–‡ä»¶çš„æ‰©å±•åï¼Œåˆ¤æ–­æ˜¯.xlsxæ–‡ä»¶è¿˜æ˜¯.xlsæ–‡ä»¶
 		String fileExtensiongName = fileName.substring(fileName.indexOf("."));
-		//Èç¹ûÊÇ.xlsx,Ê¹ÓÃXSSFWorkbook¶ÔÏó½øĞĞÊµÀı»¯
-		//Èç¹ûÊÇ.xls,Ê¹ÓÃSSFWorkbook¶ÔÏó½øĞĞÊµÀı»¯
+		//å¦‚æœæ˜¯.xlsx,ä½¿ç”¨XSSFWorkbookå¯¹è±¡è¿›è¡Œå®ä¾‹åŒ–
+		//å¦‚æœæ˜¯.xls,ä½¿ç”¨SSFWorkbookå¯¹è±¡è¿›è¡Œå®ä¾‹åŒ–
 		if(fileExtensiongName.equals(".xlsx")){
 			workbook=new XSSFWorkbook(inputStream);
 		}else if(fileExtensiongName.equals(".xls")) {
@@ -43,33 +44,34 @@ public class ReadExcelUtil {
 		}else {
 			logger.fatal("the file is not excel");
 		}
-		//Í¨¹ısheetName²ÎÊı£¬Éú²úsheet¶ÔÏó
+		//é€šè¿‡sheetNameå‚æ•°ï¼Œç”Ÿäº§sheetå¯¹è±¡
 		Sheet sheet =  workbook.getSheet(sheetName);
-		//»ñÈ¡ÎÄ¼şÖĞsheet1ÖĞµÄÊı¾İµÄĞĞÊı£¬getLastRowNum·½·¨»ñÈ¡Êı¾İµÄ×îºóÒ»ĞĞĞĞºÅ
-		//getFirstRowNum·½·¨»ñÈ¡Êı¾İµÄµÚÒ»ĞĞĞĞºÅ£¬Ïà¼õÖ®ºóËã³öÊı¾İµÄĞĞÊı
-		//excelÎÄ¼şµÄĞĞºÅºÍÁĞºÅ¶¼ÊÇ´Ó0¿ªÊ¼µÄ
+		//è·å–æ–‡ä»¶ä¸­sheet1ä¸­çš„æ•°æ®çš„è¡Œæ•°ï¼ŒgetLastRowNumæ–¹æ³•è·å–æ•°æ®çš„æœ€åä¸€è¡Œè¡Œå·
+		//getFirstRowNumæ–¹æ³•è·å–æ•°æ®çš„ç¬¬ä¸€è¡Œè¡Œå·ï¼Œç›¸å‡ä¹‹åç®—å‡ºæ•°æ®çš„è¡Œæ•°
+		//excelæ–‡ä»¶çš„è¡Œå·å’Œåˆ—å·éƒ½æ˜¯ä»0å¼€å§‹çš„
 		int rowCount = sheet.getLastRowNum()-sheet.getFirstRowNum();
-		//´´½¨ÃûÎªrecordsµÄlist¶ÔÏó´æ´¢´ÓexcelÊı¾İÎÄ¼ş¶ÁÈ¡µÄÊı¾İ
+		//åˆ›å»ºåä¸ºrecordsçš„listå¯¹è±¡å­˜å‚¨ä»excelæ•°æ®æ–‡ä»¶è¯»å–çš„æ•°æ®
 		List<Object[]> records = new ArrayList<Object[]>();
-		//2¸öforÑ­»·±éÀúExcelÊı¾İÎÄ¼şµÄËùÓĞÊı¾İ£¨³ıÁËµÚÒ»ĞĞ£¬µÚÒ»ĞĞÊÇÊı¾İÁĞÃû³Æ£©
+		//2ä¸ªforå¾ªç¯éå†Excelæ•°æ®æ–‡ä»¶çš„æ‰€æœ‰æ•°æ®ï¼ˆé™¤äº†ç¬¬ä¸€è¡Œï¼Œç¬¬ä¸€è¡Œæ˜¯æ•°æ®åˆ—åç§°ï¼‰
 		for (int r = 0; r < rowCount+1; r++) {
 			Row row =sheet.getRow(r);
-			//ÉùÃ÷Ò»¸öÊı×é£¬ÓÃÀ´´æ´¢excelÊı¾İÎÄ¼şÃ¿ĞĞÖĞµÄ3¸öÊı¾İ£¬Êı×éµÄ´óĞ¡ÓÃ¶¯Ì¬ÉùÃ÷
-			//²âÊÔÊı¾İ¸öÊıºÍÊı×é´óĞ¡ÏàÒ»ÖÂ
+			//å£°æ˜ä¸€ä¸ªæ•°ç»„ï¼Œç”¨æ¥å­˜å‚¨excelæ•°æ®æ–‡ä»¶æ¯è¡Œä¸­çš„3ä¸ªæ•°æ®ï¼Œæ•°ç»„çš„å¤§å°ç”¨åŠ¨æ€å£°æ˜
+			//æµ‹è¯•æ•°æ®ä¸ªæ•°å’Œæ•°ç»„å¤§å°ç›¸ä¸€è‡´
 			String fields[] = new String[row.getLastCellNum()];
 			for(int j =0;j<row.getLastCellNum();j++){
 				fields[j]=row.getCell(j).getStringCellValue();
 			}
-			//½«fieldsÊı¾İ¶ÔÏó´æ´¢µ½recorsµÄlistÖĞ
+			//å°†fieldsæ•°æ®å¯¹è±¡å­˜å‚¨åˆ°recorsçš„listä¸­
 			records.add(fields);
 		}
-		//·µ»ØObjcet[][]
-		//½«´æ´¢²âÊÔÊı¾İµÄlist×ª»»ÎªÒ»¸öObjcetµÄ¶şÎ¬Êı×é
+		//è¿”å›Objcet[][]
+		//å°†å­˜å‚¨æµ‹è¯•æ•°æ®çš„listè½¬æ¢ä¸ºä¸€ä¸ªObjcetçš„äºŒç»´æ•°ç»„
 		Object[][] results = new Object[records.size()][];
-		//ÉèÖÃ¶şÎ¬Êı×éÃ¿ĞĞµÄÖµ£¬Ã¿ĞĞÊÇÒ»¸öobject¶ÔÏó
+		//è®¾ç½®äºŒç»´æ•°ç»„æ¯è¡Œçš„å€¼ï¼Œæ¯è¡Œæ˜¯ä¸€ä¸ªobjectå¯¹è±¡
 		for(int i =0 ; i < records.size();i++){
 			results[i]=records.get(i);
 		}
+		//è¿”å›è¯»å–ç»“æœ
 		return results;
 	}
 }
