@@ -3,6 +3,7 @@ package com.autotest.Module;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.Point;
@@ -11,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import com.autotest.Control;
+import com.autotest.common.ValidateObj;
 import com.autotest.common.objects.AlarmObject;
 import com.autotest.component.Button;
 import com.autotest.component.Combo;
@@ -20,7 +22,7 @@ import com.autotest.utils.CommonOperations;
 import com.sun.org.apache.bcel.internal.generic.Select;
 
 public class AlarmRule {
-	
+	public static Logger logger = Logger.getLogger(AlarmRule.class);
 	public static AlarmRule singleAlarm=null;
 	private WebDriver driver=null;
 	private String tempJS=null;
@@ -50,6 +52,7 @@ public class AlarmRule {
 	 * @return
 	 */
 	public int getAalrmCount(){
+		logger.info("get the alarm count");
 		tempJS="return document.getElementsByClassName(\"x-grid-row x-grid-data-row\").length.toString()";
 		String tCount=CommonOperations.executeJS(tempJS, driver);
 		alarmCount =Integer.parseInt(tCount);
@@ -172,7 +175,7 @@ public class AlarmRule {
 		inputRuleOption(alarmMessage);
 		//选择告警设备
 		CommonOperations.clickCombBtn(UCenterPageConstant.alarmDevice, driver);
-		CommonOperations.selectComboTreeDevice("2307440130001328", driver);
+		CommonOperations.selectComboTreeDevice(alarmMessage.snList, driver);
 
 	}
 	
@@ -185,6 +188,8 @@ public class AlarmRule {
 		String js = "return document.getElementsByClassName(\"x-boundlist x-boundlist-"
 				+ "floating x-layer x-boundlist-default x-border-box\")[0].id";
 		String elementID =CommonOperations.executeJS(js, driver);
+		 WebElement element1 = driver.findElement(By.id(elementID));
+		 List<WebElement> listElement=element1.findElements(By.tagName("li"));
 		tempJS="return document.getElementById(\""+elementID+"\").getElementsByTagName(\"li\").length";
 		//String typeCount=CommonOperations.executeJS(tempJS, driver);
 		
@@ -197,9 +202,10 @@ public class AlarmRule {
 				if(elementPart == null){
 					System.out.println("the element is not exist");
 				}
-				tempJS = "document.getElementById(\""+elementID+"\").getElementsByTagName(\"li\")["
-						+ i+"].click()";
-				CommonOperations.exeJS(tempJS, driver);
+				elementPart.click();
+//				tempJS = "document.getElementById(\""+elementID+"\").getElementsByTagName(\"li\")["
+//						+ i+"].click()";
+//				CommonOperations.exeJS(tempJS, driver);
 			}
 		}
 	}

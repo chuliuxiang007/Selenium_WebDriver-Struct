@@ -28,7 +28,7 @@ public class ReadExcelUtil {
 		Workbook web = null;
 		//根据参数传入的数据文件路径和文件名称，组合出Excel数据文件的绝对路径
 		//声明一个File文件对象
-		File file=new File(filePath+"\\"+fileName);
+		File file=new File(filePath+"//"+fileName);
 		//创建FileInputStream对象读取excle文件
 		FileInputStream inputStream = new FileInputStream(file);
 		//声明Workbook对象
@@ -53,7 +53,7 @@ public class ReadExcelUtil {
 		//创建名为records的list对象存储从excel数据文件读取的数据
 		List<Object[]> records = new ArrayList<Object[]>();
 		//2个for循环遍历Excel数据文件的所有数据（除了第一行，第一行是数据列名称）
-		for (int r = 0; r < rowCount+1; r++) {
+		for (int r = 1; r < rowCount+1; r++) {
 			Row row =sheet.getRow(r);
 			//声明一个数组，用来存储excel数据文件每行中的3个数据，数组的大小用动态声明
 			//测试数据个数和数组大小相一致

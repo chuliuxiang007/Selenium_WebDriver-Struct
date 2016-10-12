@@ -1,6 +1,7 @@
 package test;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,15 +13,21 @@ import com.autotest.common.objects.AlarmObject;
 import com.autotest.pageobjects.LoginPage;
 import com.autotest.pageobjects.MainPage;
 import com.autotest.pageobjects.UCenterPage;
+import com.autotest.utils.ReadExcelUtil;
 
 public class NewTest {
   @Test
-  public void f() throws InterruptedException {
+  public void f() throws InterruptedException, IOException {
 		WebDriver webDriver = null;
 		LoginPage login = new LoginPage(webDriver);
 		webDriver=login.webDriver;
+		Object[][] readData=ReadExcelUtil.readExcel(".//src/test/resources/TestData/UserInfo", 
+				"UserInfo.xlsx", "UserLogin");
+		String userName = readData[0][0].toString();
+		String passWord = readData[0][1].toString();
+		System.out.println(userName);
 		try {
-			login.login("chuliuxiang", "a12345678");
+			login.login(userName, passWord);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,14 +41,13 @@ public class NewTest {
 		Assert.assertTrue(uCenter.existUCenter());	
 		uCenter.clickUCenterBtn(3);
 		//新建告警规则
-		
 		List<AlarmObject> abc = new  ArrayList<AlarmObject>();
-		AlarmObject a = new AlarmObject();
-		
-		a.alarmName="sliu1";
-		a.desc="we see it";
-		abc.add(a);
-		//uCenter.addAalrmRule(abc);
+		//加载告警规则数据
+		String filePath=".//src/test/resources/TestData/AlarmRule";
+		String fileName="AlarmInfo.xlsx";
+		String sheetName="NormalRule";
+		abc =uCenter.loadAlarmData(filePath, fileName, sheetName);		
+		uCenter.addAalrmRule(abc);
 		uCenter.valAalarmRule(abc);
 		
 		

@@ -23,7 +23,7 @@
 	</appender>
 
 	<appender name="appendFile" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="E:/log/output.log" />
+		<param name="File" value=".//src/test/resources/Log/output.log" />
 		<param name="Append" value="true" />
 		<param name="MaxBackupIndex" value="10" />
 		<param name="MaxFileSize" value="10MB" />

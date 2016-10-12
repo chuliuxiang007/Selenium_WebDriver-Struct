@@ -1,0 +1,2 @@
+2016-10-12 12:25:33 249 [main] INFO  com.autotest.Module.AlarmRule.getAalrmCount(AlarmRule.java:55) - get the alarm count
+2016-10-12 12:25:54 600 [main] INFO  com.autotest.common.ValidateObj.valDetailAlarm(ValidateObj.java:52) - 校验告警规则详细内容

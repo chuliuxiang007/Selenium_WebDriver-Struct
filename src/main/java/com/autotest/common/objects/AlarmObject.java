@@ -9,6 +9,7 @@ public class AlarmObject {
 	public String alarmMethod;
 	public String desc;
 	public String operator;
+	public String snList;
 	
 	public void setName(String name){
 		this.alarmName =name;

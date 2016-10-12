@@ -1,5 +1,7 @@
 package com.autotest.pageobjects;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +18,7 @@ import com.autotest.component.Button;
 import com.autotest.component.Combo;
 import com.autotest.component.TextBox;
 import com.autotest.pageconstant.UCenterPageConstant;
+import com.autotest.utils.ReadExcelUtil;
 
 public class UCenterPage extends ExtJSPage {
 	
@@ -92,6 +95,30 @@ public class UCenterPage extends ExtJSPage {
 	}
 	
 	//告警规则处理
+	/**
+	 * 告警数据加载处理
+	 * @param filePath
+	 * @param fileName
+	 * @param sheetName
+	 * @return
+	 * @throws IOException
+	 */
+	public List<AlarmObject> loadAlarmData(String filePath, String fileName, String sheetName) throws IOException{
+		List<AlarmObject> list = new ArrayList<AlarmObject>();
+		AlarmObject listChild = new AlarmObject();
+		Object[][] readData=ReadExcelUtil.readExcel(filePath, fileName, sheetName);
+		for(int i = 0 ; i < readData.length;i++){
+			int j = 0;
+			listChild.alarmName=readData[i][j++].toString();
+			listChild.alarmDevices=readData[i][j++].toString();
+			listChild.level=readData[i][j++].toString();
+			listChild.alarmMethod=readData[i][j++].toString();
+			listChild.desc=readData[i][j++].toString();
+			listChild.snList=readData[i][j++].toString();
+			list.add(listChild);
+			}
+		return list;
+	}
 	
 	/**
 	 * 告警规则新建
