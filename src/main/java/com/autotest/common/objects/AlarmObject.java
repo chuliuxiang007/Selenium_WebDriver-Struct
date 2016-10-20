@@ -11,6 +11,19 @@ public class AlarmObject {
 	public String operator;
 	public String snList;
 	
+	//告警类型条件
+	public String alarmType;
+	public String alarmType_SecType;
+	public int alarmTime_Number;
+	public String alarmTime_Type;
+	public String alarmRegex;
+	public int alarmType_Value;
+	
+	//告警规则表中 列数据
+	public int columnNumber=7;
+	public String[] colAlarmTable={"名称","设备","级别","创建时间","告警方式","描述","操作"};
+	
+	
 	public void setName(String name){
 		this.alarmName =name;
 	}

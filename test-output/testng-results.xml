@@ -2,17 +2,29 @@
 <testng-results skipped="0" failed="1" total="1" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="15728" started-at="2016-10-12T05:47:33Z" finished-at="2016-10-12T05:47:49Z">
+  <suite name="Default suite" duration-ms="16276" started-at="2016-10-20T09:44:38Z" finished-at="2016-10-20T09:44:54Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="15728" started-at="2016-10-12T05:47:33Z" finished-at="2016-10-12T05:47:49Z">
-      <class name="test.NewTest">
-        <test-method status="FAIL" signature="f()[pri:0, instance:test.NewTest@61832929]" name="f" duration-ms="15689" started-at="2016-10-12T13:47:33Z" finished-at="2016-10-12T13:47:49Z">
-          <exception class="java.lang.NullPointerException">
+    <test name="Default test" duration-ms="16276" started-at="2016-10-20T09:44:38Z" finished-at="2016-10-20T09:44:54Z">
+      <class name="AlarmRuleModule.NewTest">
+        <test-method status="FAIL" signature="f()[pri:0, instance:AlarmRuleModule.NewTest@28d25987]" name="f" duration-ms="16226" started-at="2016-10-20T17:44:38Z" finished-at="2016-10-20T17:44:54Z">
+          <exception class="java.lang.IllegalArgumentException">
+            <message>
+              <![CDATA[Cannot find elements with a null id attribute.]]>
+            </message>
             <full-stacktrace>
-              <![CDATA[java.lang.NullPointerException
-	at com.autotest.utils.ReadExcelUtil.readExcel(ReadExcelUtil.java:52)
-	at test.NewTest.f(NewTest.java:24)
+              <![CDATA[java.lang.IllegalArgumentException: Cannot find elements with a null id attribute.
+	at org.openqa.selenium.By.id(By.java:53)
+	at com.autotest.ExtJSPage.getElement(ExtJSPage.java:92)
+	at com.autotest.ExtJSPage$1.apply(ExtJSPage.java:171)
+	at com.autotest.ExtJSPage$1.apply(ExtJSPage.java:1)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:238)
+	at com.autotest.ExtJSPage.findElement(ExtJSPage.java:168)
+	at com.autotest.ExtJSPage.type(ExtJSPage.java:50)
+	at com.autotest.component.TextBox.inputTextBox(TextBox.java:77)
+	at com.autotest.pageobjects.LoginPage.login(LoginPage.java:46)
+	at com.autotest.pageobjects.LoginPage.loginDefault(LoginPage.java:65)
+	at AlarmRuleModule.NewTest.f(NewTest.java:22)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -39,11 +51,11 @@
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:57)
 ]]>
             </full-stacktrace>
-          </exception> <!-- java.lang.NullPointerException -->
+          </exception> <!-- java.lang.IllegalArgumentException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- f -->
-      </class> <!-- test.NewTest -->
+      </class> <!-- AlarmRuleModule.NewTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

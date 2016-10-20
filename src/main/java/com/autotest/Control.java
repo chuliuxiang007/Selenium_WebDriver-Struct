@@ -5,6 +5,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
+import com.autotest.utils.CommonOperations;
+
 public  abstract class Control {
 	
 	protected WebDriver webDriver;
@@ -71,19 +73,12 @@ public  abstract class Control {
 		idNumber=(String)executor.executeScript(js);
 		int count=0;
 		while(idNumber == null){
-			try {
-				 Thread.sleep(3000);
-				count=count+1;
-				System.out.println("the count is "+count);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			CommonOperations.waitTime(2);
+			 count=count+1;
 			if(count == 20){
 				return null;
 			}
-			idNumber=(String)executor.executeScript(js);
-			
+			idNumber=(String)executor.executeScript(js);			
 		}
 		return idNumber;
 	}

@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import com.autotest.Control;
 import com.autotest.ExtJSPage;
 import com.autotest.pageconstant.UCenterPageConstant;
+import com.autotest.utils.CommonOperations;
 import com.autotest.utils.Locator;
 
 public class Combo extends Control {
@@ -44,7 +45,7 @@ public class Combo extends Control {
 		ExtJSPage extPage=new ExtJSPage(webDriver);
 		try {
 			extPage.click(locator);
-			Thread.sleep(1000);
+			CommonOperations.waitTime(1);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -58,17 +59,39 @@ public class Combo extends Control {
 	public void selectDeviceTree(String sn){
 		String regexTree="return document.getElementsByClassName(\"x-tree-view x-fit-"
 				+ "item x-tree-view-default x-unselectable\")[0].id";
-		String treeID = getId(regexTree);
+		String treeID = executeJS(regexTree);
+		clearDeviceTree();
 		String sCombo=treeID+"-record-"+sn;
 		Locator locator = new Locator(sCombo);
 		ExtJSPage extPage=new ExtJSPage(webDriver);
 		try {
 			extPage.click(locator);
-			Thread.sleep(1000);
+			CommonOperations.waitTime(2);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
+	}
+	
+	/**
+	 * 清空下拉设备树上勾选的内容
+	 */
+	public void clearDeviceTree(){
+		String regexTree="return document.getElementsByClassName(\"x-tree-view x-fit-"
+				+ "item x-tree-view-default x-unselectable\")[0].id";
+		String treeID = executeJS(regexTree);
+		String sCombo=treeID+"-record-0";
+		Locator locator = new Locator(sCombo);
+		ExtJSPage extPage=new ExtJSPage(webDriver);
+		try {
+			extPage.click(locator);
+			CommonOperations.waitTime(2);
+			extPage.click(locator);
+			CommonOperations.waitTime(2);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 

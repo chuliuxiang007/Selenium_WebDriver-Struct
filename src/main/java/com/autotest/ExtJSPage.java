@@ -48,6 +48,7 @@ public class ExtJSPage extends CompositeControl {
 	 */
 	public void type(Locator locator,String values){
 		WebElement e = findElement(webDriver,locator);
+		e.clear();
 		e.sendKeys(values);
 	}
 	
@@ -81,7 +82,7 @@ public class ExtJSPage extends CompositeControl {
 	 * @throws IOException
 	 */
 	public WebElement getElement (WebDriver driver,Locator locator) throws IOException{
-		locator=getLocator(locator.getElement());
+	//	locator=getLocator(locator.getElement());
 		WebElement e;
         switch (locator.getBy()) {
         case xpath:

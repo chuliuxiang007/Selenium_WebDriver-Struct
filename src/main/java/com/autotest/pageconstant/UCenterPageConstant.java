@@ -29,6 +29,6 @@ public class UCenterPageConstant {
 	public static String alarmCertain = "(\"button[text='确定']\")[0]";
 	
 	//标签管理
-	public static String NewTag="(\"button[text='新建']\")[0]";
+	public static String tagName="(\"textfield[fieldLabel='标签']\")[0]";
 
 }

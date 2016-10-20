@@ -3,16 +3,16 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test verbose="2" name="Default test">
     <classes>
-      <class name="test.NewTest"/>
+      <class name="AlarmRuleModule.NewTest"/>
     </classes>
   </test> <!-- Default test -->
   <test name="Default test(failed)">
     <classes>
-      <class name="test.NewTest">
+      <class name="AlarmRuleModule.NewTest">
         <methods>
           <include name="f"/>
         </methods>
-      </class> <!-- test.NewTest -->
+      </class> <!-- AlarmRuleModule.NewTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -4,6 +4,9 @@
 	<groupId>CloudView</groupId>
 	<artifactId>CloudView</artifactId>
 	<version>1.0</version>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
@@ -55,6 +58,5 @@
 			<artifactId>poi-ooxml-schemas</artifactId>
 			<version>3.11</version>
 		</dependency>
-
 	</dependencies>
 </project>

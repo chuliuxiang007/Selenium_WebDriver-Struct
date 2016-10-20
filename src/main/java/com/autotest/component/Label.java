@@ -25,11 +25,11 @@ public class Label extends Control {
 	/**
 	 * 获取label的ID号
 	 */
-	public void getID() {
+	public String getID() {
 		this.path=this.getQuery();
 		String js="return " + this.path + ".id";
 		this.id=getId(js);
-		System.out.println("the id is "+id);
+		return this.id;
 	}
 	
 	/**

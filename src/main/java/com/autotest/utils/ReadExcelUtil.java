@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -59,8 +60,12 @@ public class ReadExcelUtil {
 			//测试数据个数和数组大小相一致
 			String fields[] = new String[row.getLastCellNum()];
 			for(int j =0;j<row.getLastCellNum();j++){
+				if(row.getCell(j).getCellType() == Cell.CELL_TYPE_NUMERIC){
+					fields[j]=String.valueOf(row.getCell(j).getNumericCellValue()) ;
+				}else{
 				fields[j]=row.getCell(j).getStringCellValue();
 			}
+		}
 			//将fields数据对象存储到recors的list中
 			records.add(fields);
 		}
@@ -71,7 +76,8 @@ public class ReadExcelUtil {
 		for(int i =0 ; i < records.size();i++){
 			results[i]=records.get(i);
 		}
+		
 		//返回读取结果
 		return results;
-	}
+		}
 }

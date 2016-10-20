@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="告警规则功能测试" parallel="false">
+	<test name="告警规则界面 页面元素的验证 ">
+		<groups>
+			<run>
+				<include name="checkElement" />
+			</run>
+		</groups>
+		<classes>
+			<class name="AlarmRuleModule.AlarmFunctionTest" />
+		</classes>
+	</test>
+	<test preserve-order="true" name="告警规则新建、编辑、删除功能验证 ">
+		<groups>
+			<run>
+				<include name="alarm_basic_function" />
+			</run>
+		</groups>
+		<classes>
+			<class name="AlarmRuleModule.AlarmFunctionTest">
+			<methods>
+				<include name="checkElement" />
+			</methods>
+			</class>
+		</classes>
+	</test>
+</suite> <!-- Suite -->

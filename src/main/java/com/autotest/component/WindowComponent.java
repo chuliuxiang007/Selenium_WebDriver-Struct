@@ -1,32 +1,50 @@
 package com.autotest.component;
 
+
 import org.openqa.selenium.WebDriver;
 
-import com.autotest.Control;
+import com.autotest.pageconstant.GlobalConstant;
+import com.autotest.utils.CommonOperations;
 
-public class WindowComponent extends Control {
+public class WindowComponent {
+	
+	private String tempJS=null;
+	private String result=null;
 
-	public WindowComponent(WebDriver webDriver) {
-		super(webDriver);
+	public WindowComponent() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	/**
-	 * 获取当前弹窗窗口
+	 * 获取当前弹窗窗口ID号
 	 * @return
 	 */
-	public String getWindowID(){
-		return "document.getElementsByClassName(\"x-window\")[0]";
+	public String getWindowID(WebDriver driver){
+		tempJS="return document.getElementsByClassName(\"x-window\")[0].id";
+		result =CommonOperations.executeJS(tempJS, driver);
+		return result;
 	}
 	
 	/**
-	 * 获取当前窗口head的内容
+	 * 获取当前窗口head的内容,根据窗口的id号
 	 * @param id
 	 * @return
 	 */
 	public String getHeadContext(String id){
-		String regularContext="document.getElementById(\""+id+"_header\").textContent";
+		String regularContext="return document.getElementById(\""+id+"_header\").textContent";
 		return regularContext;		
+	}
+	
+	/**
+	 * 获取当前唯一弹窗的标题栏内容：context
+	 * @return
+	 */
+	public String getCurrentHeadContext(WebDriver driver){
+		tempJS="return document.getElementsByClassName(\"x-window\")[0]"
+				+ ".getElementsByClassName(\"x-header-text x-window-header-text x-window-header-text-default\")"
+				+ "[0].textContent";
+		result =CommonOperations.executeJS(tempJS, driver);
+		return result;
 	}
 	
 	/**
@@ -38,6 +56,7 @@ public class WindowComponent extends Control {
 		String regexLabel="Ext.ComponentQuery.query(\"textfield[fieldLabel='"+labelName+"']\")[0]";
 		return regexLabel;
 	}
+	
 	
 	
 	

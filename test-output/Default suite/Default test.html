@@ -57,9 +57,9 @@ function toggleAllBoxes() {
 <tr>
 <td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Wed Oct 12 13:47:33 CST 2016</td>
+<td>Started on:</td><td>Thu Oct 20 17:44:38 CST 2016</td>
 </tr>
-<tr><td>Total time:</td><td>15 seconds (15728 ms)</td>
+<tr><td>Total time:</td><td>16 seconds (16276 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -75,10 +75,19 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='test.NewTest.f()'><b>f</b><br>Test class: test.NewTest</td>
-<td><div><pre>java.lang.NullPointerException
-	at com.autotest.utils.ReadExcelUtil.readExcel(ReadExcelUtil.java:52)
-	at test.NewTest.f(NewTest.java:24)
+<td title='AlarmRuleModule.NewTest.f()'><b>f</b><br>Test class: AlarmRuleModule.NewTest</td>
+<td><div><pre>java.lang.IllegalArgumentException: Cannot find elements with a null id attribute.
+	at org.openqa.selenium.By.id(By.java:53)
+	at com.autotest.ExtJSPage.getElement(ExtJSPage.java:92)
+	at com.autotest.ExtJSPage$1.apply(ExtJSPage.java:171)
+	at com.autotest.ExtJSPage$1.apply(ExtJSPage.java:1)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:238)
+	at com.autotest.ExtJSPage.findElement(ExtJSPage.java:168)
+	at com.autotest.ExtJSPage.type(ExtJSPage.java:50)
+	at com.autotest.component.TextBox.inputTextBox(TextBox.java:77)
+	at com.autotest.pageobjects.LoginPage.login(LoginPage.java:46)
+	at com.autotest.pageobjects.LoginPage.loginDefault(LoginPage.java:65)
+	at AlarmRuleModule.NewTest.f(NewTest.java:22)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -103,10 +112,19 @@ function toggleAllBoxes() {
 	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:126)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:152)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:57)
-</pre></div><a href='#' onClick='toggleBox("stack-trace476579021", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace476579021'><pre>java.lang.NullPointerException
-	at com.autotest.utils.ReadExcelUtil.readExcel(ReadExcelUtil.java:52)
-	at test.NewTest.f(NewTest.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1618984457", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1618984457'><pre>java.lang.IllegalArgumentException: Cannot find elements with a null id attribute.
+	at org.openqa.selenium.By.id(By.java:53)
+	at com.autotest.ExtJSPage.getElement(ExtJSPage.java:92)
+	at com.autotest.ExtJSPage$1.apply(ExtJSPage.java:171)
+	at com.autotest.ExtJSPage$1.apply(ExtJSPage.java:1)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:238)
+	at com.autotest.ExtJSPage.findElement(ExtJSPage.java:168)
+	at com.autotest.ExtJSPage.type(ExtJSPage.java:50)
+	at com.autotest.component.TextBox.inputTextBox(TextBox.java:77)
+	at com.autotest.pageobjects.LoginPage.login(LoginPage.java:46)
+	at com.autotest.pageobjects.LoginPage.loginDefault(LoginPage.java:65)
+	at AlarmRuleModule.NewTest.f(NewTest.java:22)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -132,8 +150,8 @@ function toggleAllBoxes() {
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:152)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:57)
 </pre></div></td>
-<td>15</td>
-<td>test.NewTest@61832929</td></tr>
+<td>16</td>
+<td>AlarmRuleModule.NewTest@28d25987</td></tr>
 </table><p>
 </body>
 </html>

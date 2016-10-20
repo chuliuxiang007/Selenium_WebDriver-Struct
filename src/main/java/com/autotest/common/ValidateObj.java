@@ -1,5 +1,8 @@
 package com.autotest.common;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -53,7 +56,15 @@ public class ValidateObj {
 			Assert.assertEquals(actual.alarmName, expected.alarmName);
 			Assert.assertEquals(actual.alarmDevices, expected.alarmDevices);
 			Assert.assertEquals(actual.level, expected.level);
-			Assert.assertEquals(actual.creatime, expected.creatime);
+			Date d = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+			String dateNowStr=sdf.format(d);
+			expected.creatime = dateNowStr;
+			if(actual.creatime.contains(expected.creatime)){
+				Assert.assertTrue(true);
+			}else{
+				Assert.assertTrue(false);
+			}
 			Assert.assertEquals(actual.alarmMethod, expected.alarmMethod);
 			Assert.assertEquals(actual.desc, expected.desc);
 		}else{

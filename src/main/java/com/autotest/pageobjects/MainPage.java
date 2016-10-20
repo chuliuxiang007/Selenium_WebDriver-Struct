@@ -68,6 +68,8 @@ public class MainPage extends ExtJSPage {
 		userCenterBtn.click();
 	}
 	
+
+	
 	
 	
 	
