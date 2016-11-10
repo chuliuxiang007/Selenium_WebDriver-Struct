@@ -6,5 +6,6 @@ public class TagObject {
 	public String tagName;
 	public String tagDevices;
 	public String operator;
+	public String sn;
 
 }

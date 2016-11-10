@@ -295,7 +295,7 @@ public class AlarmRule {
 		inputRuleOption(alarmMessage);
 		//选择告警设备
 		CommonOperations.clickCombBtn(UCenterPageConstant.alarmDevice, driver);
-		CommonOperations.selectComboTreeDevice(alarmMessage.snList, driver);
+		CommonOperations.selectComboTreeDevice(alarmMessage.alarmDevices,1, driver);
 		CommonOperations.clickCombBtn(UCenterPageConstant.alarmDevice, driver);
 		//响应动作
 		//级别

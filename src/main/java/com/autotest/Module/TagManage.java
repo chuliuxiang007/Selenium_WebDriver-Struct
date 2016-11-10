@@ -43,12 +43,14 @@ public class TagManage {
 	 */
 	public void add_Tag(TagObject obj){
 		//点击新建按钮
-		logger.info("新建告警规则： "+obj.tagName);
+		logger.info("新建标签： "+obj.tagName);
 		Button addTagBtn = new Button(GlobalConstant.newAdd,driver);
 		addTagBtn.click();
 		checkTagPanel();
 		//输入 标签名称
 		CommonOperations.inputText("标签", obj.tagName, driver);
+		CommonOperations.clickCombBtn(driver);
+		CommonOperations.selectComboTreeDevice(obj.tagDevices, 2,driver);
 		
 	}
 	

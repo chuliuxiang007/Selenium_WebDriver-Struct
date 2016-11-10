@@ -98,7 +98,6 @@ public class UCenterPage extends ExtJSPage {
 		}
 	}
 	
-	//告警规则处理
 	/**
 	 * 告警数据加载处理
 	 * @param filePath
@@ -135,7 +134,36 @@ public class UCenterPage extends ExtJSPage {
 			}
 		return list;
 	}
+
+	/**
+	 * 标签数据加载处理
+	 * @param filePath
+	 * @param fileName
+	 * @param sheetName
+	 * @return
+	 */
+	public List<TagObject> loadTagData(String filePath,String fileName,String sheetName){
+		List<TagObject> list = new ArrayList<TagObject>();
+		Object[][] readData=null;
+		try {
+			readData = ReadExcelUtil.readExcel(filePath, fileName, sheetName);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(int i=0; i < readData.length;i++){
+			int j = 0;
+			TagObject listChild = new TagObject();
+			listChild.tagName=readData[i][j++].toString();
+			listChild.tagDevices=readData[i][j++].toString();
+			listChild.sn=readData[i][j++].toString();
+			list.add(listChild);
+		}
+		return list;
+	}
+
 	
+	//告警规则处理
 	/**
 	 * 校验告警规则页面的正确性
 	 */
@@ -190,6 +218,7 @@ public class UCenterPage extends ExtJSPage {
 		ValidateObj.validateAlarm(actual, expectd);
 	}
 	
+	//标签处理
 	/**
 	 * 添加标签
 	 * @param tag

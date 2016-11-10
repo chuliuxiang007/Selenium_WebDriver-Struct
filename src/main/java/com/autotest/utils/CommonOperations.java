@@ -157,6 +157,17 @@ public class CommonOperations {
 		combo.clickCombo(elementID);
 		
 	}
+	
+	/**
+	 * 下拉框按钮操作：右边按钮点击
+	 * 面板只存在一个下拉框按钮
+	 * @param driver
+	 */
+	public static void clickCombBtn(WebDriver driver){
+		Combo combo = new Combo(driver);
+		combo.clickCombo();
+	}
+	
 	/**
 	 * 下拉框按钮操作：右边按钮点击
 	 * @param elementID 根据Combo的id号
@@ -232,9 +243,15 @@ public class CommonOperations {
 	 * 勾选combo下拉树列表框设备
 	 * @param sn
 	 */
-	public static void selectComboTreeDevice(String sn,WebDriver driver){
+	public static void selectComboTreeDevice(String devices,int number,WebDriver driver){
+		String[] devicesItem=null;
 		Combo combo = new Combo(driver);
-		combo.selectDeviceTree(sn);
+		if(devices == null){
+			return;
+		}else{
+			devicesItem=devices.split(",");
+		}
+		combo.selectDeviceTree(devicesItem,number);
 	}
 	
 	/**
